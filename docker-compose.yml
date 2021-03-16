@@ -1,0 +1,62 @@
+
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: callcenter
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: callcenter
+    container_name: callcenter-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+
+  db:
+    image: postgres:9.5-alpine
+    container_name: callcenter-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    volumes:
+      - callcenter-mysql:/var/lib/postgresql/data/
+    ports:
+       - "5432:5432"
+
+  nginx:
+    image: nginx:alpine
+    container_name: callcenter-nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d
+
+  redis:
+    image: redis:4.0
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+    - ./docker-compose/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+          - "6382:6379"
+  localstack:
+    image: localstack/localstack
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+    ports:
+      - "4563-4599:4563-4599"
+    volumes:
+      - ./docker-compose/localstack:/docker-entrypoint-initaws.d
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  callcenter-mysql:
+    driver: "local"

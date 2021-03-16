@@ -1,7 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +12,15 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/', function () {
+    return 'Working';
+});
+
+Route::group(['namespace' => 'Auth'], function() {
+    Route::post('login', 'LoginController@login')->name('login');
+    Route::post('password/link', 'PasswordResetController@create');
+    Route::get('password/find/{token}', 'PasswordResetController@find');
+    Route::post('password/reset', 'PasswordResetController@reset');
+
+    Route::post('logout', 'LoginController@logout');
 });
