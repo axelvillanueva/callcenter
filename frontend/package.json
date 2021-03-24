@@ -17,6 +17,7 @@
   "devDependencies": {
     "@nuxtjs/composition-api": "^0.22.3",
     "@nuxtjs/vuetify": "^1.11.3",
-    "composition-api": "^0.0.0"
+    "composition-api": "^0.0.0",
+    "vee-validate": "^3.4.5"
   }
 }
