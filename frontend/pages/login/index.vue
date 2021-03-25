@@ -39,25 +39,13 @@
               </v-form>
             </ValidationObserver>
             <template>
-              <v-btn
-                v-if="!isLoading"
-                @click="useLogin"
-                large
-                block
-                color="primary"
-                elevation="3"
-              >
-                Ingresar
-              </v-btn>
-
-              <v-btn
-                v-else
+              <Button
                 block
                 large
-                color="primary"
-                elevation="3"
-                loading
-              ></v-btn>
+                @on:click="useLogin"
+                :loading="isLoading"
+                color="deep-purple"
+                content="Sign In" />
             </template>
           </v-col>
         </v-row>
@@ -69,11 +57,13 @@
 <script>
 import { ref, reactive, onMounted } from '@nuxtjs/composition-api';
 import {ValidationObserver, ValidationProvider} from "vee-validate";
+import Button from "~/components/shared/button.vue"
 
 export default {
   components: {
     ValidationObserver,
     ValidationProvider,
+    Button
   },
 
   setup() {
