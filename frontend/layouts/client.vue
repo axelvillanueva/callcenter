@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <main>
+    <v-main>
       <ClientNavbar />
 
-      <v-container>
-        <v-row>
+      <v-container class="fill-height px-4 app-wrapper" fluid>
+        <v-row class="fill-height">
           <v-col>
             <transition name="fade">
               <Nuxt />
@@ -12,16 +12,6 @@
           </v-col>
         </v-row>
       </v-container>
-    </main>
+    </v-main>
   </v-app>
 </template>
-
-<script>
-import ClientNavbar from '~/components/client/ClientNabvar';
-
-export default {
-  components: {
-    ClientNavbar
-  }
-}
-</script>
