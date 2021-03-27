@@ -5,5 +5,9 @@
 <script>
 export default {
   layout: 'client',
+
+  mounted() {
+    this.$router.push('/administrators');
+  }
 }
 </script>

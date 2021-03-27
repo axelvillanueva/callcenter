@@ -5,11 +5,9 @@
 
       <v-container class="fill-height px-4 app-wrapper" fluid>
         <v-row class="fill-height">
-          <v-col>
-            <transition name="fade">
-              <Nuxt />
-            </transition>
-          </v-col>
+          <transition name="fade">
+            <Nuxt />
+          </transition>
         </v-row>
       </v-container>
     </v-main>
